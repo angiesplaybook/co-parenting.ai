@@ -229,7 +229,10 @@
     color: var(--text-muted);
     font-size: 0.75rem;
     animation: fadeUp 0.6s 0.8s ease both;
+    pointer-events: none;
   }
+
+  .scroll-hint span { display: none; }
 
   .scroll-line {
     width: 1px; height: 40px;
@@ -308,10 +311,14 @@
 
   .roles-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
     margin-top: 3rem;
+    align-items: stretch;
   }
+
+  @media (max-width: 900px) { .roles-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .roles-grid { grid-template-columns: 1fr; } }
 
   .role-card {
     background: var(--cream);
@@ -319,11 +326,37 @@
     padding: 1.5rem;
     border: 1px solid var(--border);
     transition: transform 0.2s, border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .role-card.secure {
+    background: #EEF2F5;
+    border-color: rgba(58,74,85,0.2);
   }
 
   .role-card:hover {
     transform: translateY(-3px);
     border-color: var(--sage-mid);
+  }
+
+  .role-card.secure:hover { border-color: var(--slate); }
+
+  .secure-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--slate);
+    color: var(--white);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+    margin-top: auto;
+    padding-top: 0.85rem;
+    width: fit-content;
   }
 
   .role-icon {
@@ -485,10 +518,14 @@
 
   .access-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     margin-top: 3rem;
+    align-items: stretch;
   }
+
+  @media (max-width: 900px) { .access-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .access-grid { grid-template-columns: 1fr; } }
 
   .access-card {
     border: 1.5px solid var(--border);
@@ -496,6 +533,19 @@
     padding: 1.5rem;
     text-align: center;
     transition: border-color 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .access-card.secure-card {
+    background: #F0F4F7;
+    border-color: rgba(58,74,85,0.25);
+  }
+
+  .access-card.secure-card:hover {
+    border-color: var(--slate);
+    box-shadow: 0 4px 20px rgba(58,74,85,0.1);
   }
 
   .access-card:hover {
@@ -613,9 +663,14 @@
   }
 
   .animate-on-scroll {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .animate-on-scroll.will-animate {
     opacity: 0;
     transform: translateY(24px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
   }
 
   .animate-on-scroll.visible {
@@ -623,7 +678,261 @@
     transform: translateY(0);
   }
 
+  /* TWO MODES SECTION */
+  .modes-section {
+    background: var(--cream);
+    padding: 6rem 5vw;
+  }
+
+  .modes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 680px) { .modes-grid { grid-template-columns: 1fr; } }
+
+  .mode-card {
+    border-radius: 20px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .mode-everyday {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+  }
+
+  .mode-court {
+    background: #EEF2F5;
+    border: 1.5px solid rgba(58,74,85,0.2);
+  }
+
+  .mode-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .mode-icon {
+    font-size: 1.75rem;
+    width: 48px; height: 48px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--cream);
+    border-radius: 12px;
+    flex-shrink: 0;
+  }
+
+  .mode-court .mode-icon { background: rgba(58,74,85,0.08); }
+
+  .mode-name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--slate);
+    letter-spacing: -0.01em;
+  }
+
+  .mode-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.1rem;
+  }
+
+  .mode-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    flex: 1;
+  }
+
+  .mode-list li {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    padding-left: 1.1rem;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .mode-list li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0.55em;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--sage);
+    opacity: 0.5;
+  }
+
+  .mode-court .mode-list li::before { background: var(--slate); }
+
+  .mode-note {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--sage);
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    line-height: 1.5;
+  }
+
+  .mode-court .mode-note { color: var(--slate); opacity: 0.65; }
+
+  /* FAMILY MEMORY */
+  .memory-band {
+    background: var(--sage);
+    padding: 3rem 5vw;
+    text-align: center;
+  }
+
+  .memory-band h3 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    font-weight: 300;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    max-width: 680px;
+    margin: 0 auto 0.75rem;
+  }
+
+  .memory-band h3 em { font-style: italic; color: rgba(255,255,255,0.65); }
+
+  .memory-band p {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .memory-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+
+  .memory-pill {
+    background: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 100px;
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+  }
+
   /* SUCCESS STATE */
+  /* LEGAL SECTION */
+  .legal-section {
+    background: #F0F4F7;
+    padding: 6rem 5vw;
+    border-top: 1px solid rgba(58,74,85,0.1);
+    border-bottom: 1px solid rgba(58,74,85,0.1);
+  }
+
+  .legal-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 780px) { .legal-inner { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+  .legal-list {
+    list-style: none;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .legal-list li {
+    font-size: 0.875rem;
+    color: #5A6A74;
+    padding-left: 1.25rem;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .legal-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--slate);
+    opacity: 0.4;
+  }
+
+  .legal-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .log-entry {
+    background: var(--white);
+    border: 1px solid rgba(58,74,85,0.12);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+  }
+
+  .log-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+
+  .log-badge {
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: var(--slate);
+    color: var(--white);
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+  }
+
+  .log-time {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-family: 'DM Sans', monospace;
+  }
+
+  .log-content {
+    font-size: 0.85rem;
+    color: var(--slate);
+    line-height: 1.5;
+    margin-bottom: 0.4rem;
+  }
+
+  .log-author {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+
+  .log-footer {
+    text-align: right;
+    font-size: 0.72rem;
+    color: var(--sage);
+    font-weight: 500;
+    padding-top: 0.25rem;
+  }
+
   .success-msg {
     display: none;
     background: var(--sage-light);
@@ -658,7 +967,7 @@
     <em>even when you're apart</em>
   </h1>
   <p class="hero-sub">
-    The family operating system for separated families — with an AI copilot for primary caregivers and smart access for everyone in your child's village.
+    Less mental load. The family operating system that handles the logistics — so you can focus on what actually matters.
   </p>
   <div class="hero-form">
     <input type="email" id="hero-email" placeholder="Your email address" />
@@ -682,6 +991,7 @@
     <span class="trust-logo">Schools</span>
     <span class="trust-logo">Therapists</span>
     <span class="trust-logo">Childcare providers</span>
+    <span class="trust-logo">Family attorneys</span>
   </div>
 </div>
 
@@ -722,6 +1032,12 @@
       <h3>Nannies & Childcare</h3>
       <p>Shift notes, daily logs, emergency contacts, routines — all accessible from one dashboard.</p>
     </div>
+    <div class="role-card secure">
+      <div class="role-icon" style="background:#3A4A5520;">⚖️</div>
+      <h3>Family Attorney</h3>
+      <p>Secure, read-only access to timestamped communications, documented agreements, and court-ready activity logs.</p>
+      <span class="secure-badge">Secure access</span>
+    </div>
   </div>
 </section>
 
@@ -736,13 +1052,27 @@
       <div>
         <span class="feature-tag">AI Copilot</span>
         <h3>Your personal family coordinator</h3>
-        <p>Ask anything. "What does Mia need for school tomorrow?" "Remind her dad about the dentist appointment." "Draft a message to the nanny about next week's schedule." Your AI copilot knows your family's whole story.</p>
+        <p>Ask anything. "What does Mia need for school tomorrow?" "Remind her dad about the dentist appointment." "Draft a message to the nanny about next week's schedule." Your AI copilot knows your family's whole story — and remembers everything so you don't have to.</p>
       </div>
       <div class="feature-visual">
         <div class="chat-bubble user">What does Maya need for her sleepover Friday?</div>
-        <div class="chat-bubble ai">Maya's sleepover at Emma's is this Friday at 6pm. She'll need her sleeping bag (it's in the hall closet), her allergy meds, and her retainer. Her dad is dropping her off — he confirmed yesterday.</div>
+        <div class="chat-bubble ai">Maya's sleepover at Emma's is Friday at 6pm. She'll need her sleeping bag, allergy meds, and retainer. Her dad is dropping her off — he confirmed yesterday.</div>
         <div class="chat-bubble user">Can you remind him about the meds?</div>
-        <div class="chat-bubble ai">Done! I sent him a heads-up and added it to the handoff notes.</div>
+        <div class="chat-bubble ai">Done! Heads-up sent and added to the handoff notes.</div>
+      </div>
+    </div>
+
+    <div class="feature-card large animate-on-scroll" style="background: linear-gradient(135deg, #F0F7F3 0%, #FBF5EE 100%); border-color: rgba(92,122,106,0.2);">
+      <div>
+        <span class="feature-tag" style="background: rgba(92,122,106,0.15); color: var(--sage);">De-escalation</span>
+        <h3>Rewrite before you send</h3>
+        <p>Tense messages happen. Before you hit send, your AI copilot can rewrite your message into neutral, child-centered language — reducing conflict before it starts. It keeps the meaning, removes the heat.</p>
+      </div>
+      <div class="feature-visual" style="background: var(--white); border: 1px solid var(--border);">
+        <div style="font-size:0.7rem; font-weight:500; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:0.5rem;">Your draft</div>
+        <div class="chat-bubble user" style="background:#F5EBE0; color:var(--slate); max-width:100%;">You never tell me anything in advance. I found out about the field trip from another parent. This is exactly why this doesn't work.</div>
+        <div style="font-size:0.7rem; font-weight:500; text-transform:uppercase; letter-spacing:0.06em; color:var(--sage); margin:0.75rem 0 0.5rem;">Suggested rewrite</div>
+        <div class="chat-bubble ai" style="max-width:100%;">I wasn't aware of the field trip until recently. Going forward, could we share school notices as soon as they come in? That would help me stay on top of things for Maya.</div>
       </div>
     </div>
 
@@ -768,6 +1098,112 @@
       <span class="feature-tag">Permissions</span>
       <h3>Role-based access for everyone</h3>
       <p>You decide who sees what. Give grandma photos and the weekend schedule. Give school the emergency contacts. Total control, zero confusion.</p>
+    </div>
+
+    <div class="feature-card animate-on-scroll" style="border-color: rgba(58,74,85,0.25); background: #F6F8FA;">
+      <span class="feature-tag" style="background:#3A4A5515; color:var(--slate);">Secure</span>
+      <h3>Court-ready communication logs</h3>
+      <p>Every message, agreement update, and schedule change is automatically timestamped and stored in a tamper-evident log — giving your attorney what they need, without you having to compile anything.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAMILY MEMORY BAND -->
+<div class="memory-band animate-on-scroll">
+  <h3>The more you use it, the <em>smarter it gets</em></h3>
+  <p>co-parenting.ai builds a longitudinal memory of your family — custody patterns, school rhythms, care preferences, and communication history. Over time it becomes something no other app can replicate.</p>
+  <div class="memory-pills">
+    <span class="memory-pill">Custody rotation patterns</span>
+    <span class="memory-pill">School year rhythms</span>
+    <span class="memory-pill">Activity preferences</span>
+    <span class="memory-pill">Care network history</span>
+    <span class="memory-pill">Communication tone</span>
+    <span class="memory-pill">Conflict patterns</span>
+  </div>
+</div>
+
+<!-- TWO MODES -->
+<section class="modes-section">
+  <div class="animate-on-scroll" style="text-align:center; max-width:640px; margin:0 auto 3.5rem;">
+    <p class="section-label">How it works</p>
+    <h2 class="section-title" style="margin:0 auto;">One platform, <em>two modes</em></h2>
+    <p style="color:var(--text-muted); margin-top:1rem; font-size:0.95rem;">Start with everyday life. Formalize only when you need to.</p>
+  </div>
+  <div class="modes-grid animate-on-scroll">
+    <div class="mode-card mode-everyday">
+      <div class="mode-header">
+        <span class="mode-icon">🏡</span>
+        <div>
+          <div class="mode-name">Everyday Mode</div>
+          <div class="mode-desc">Default for all families</div>
+        </div>
+      </div>
+      <ul class="mode-list">
+        <li>Shared calendar + custody rotation templates</li>
+        <li>AI copilot for logistics and planning</li>
+        <li>Conflict de-escalation message rewriting</li>
+        <li>Document vault for agreements and school forms</li>
+        <li>Role-based access for your whole care network</li>
+        <li>Expense tracking and reimbursement requests</li>
+      </ul>
+      <div class="mode-note">Low friction. No legal framing. Just family life made simpler.</div>
+    </div>
+    <div class="mode-card mode-court">
+      <div class="mode-header">
+        <span class="mode-icon">⚖️</span>
+        <div>
+          <div class="mode-name">Court Mode</div>
+          <div class="mode-desc">Opt-in · for when you need it</div>
+        </div>
+      </div>
+      <ul class="mode-list">
+        <li>Immutable, tamper-evident message logs</li>
+        <li>Timestamped audit trail on all activity</li>
+        <li>Court-ready PDF exports with digital signatures</li>
+        <li>Attorney read-only portal with full history</li>
+        <li>Optional ID verification for parent accounts</li>
+        <li>Your Everyday Mode history upgrades automatically</li>
+      </ul>
+      <div class="mode-note">Your family's history becomes evidence — only if and when you choose.</div>
+    </div>
+  </div>
+</section>
+
+<!-- LEGAL SECTION -->
+<section class="legal-section animate-on-scroll">
+  <div class="legal-inner">
+    <div class="legal-text">
+      <p class="section-label" style="color:var(--slate);">For legal proceedings</p>
+      <h2 class="section-title" style="color:var(--slate);">When coordination becomes <em style="color:var(--slate-text-em);">documentation</em></h2>
+      <p style="color:#5A6A74; font-size:0.95rem; line-height:1.7; max-width:460px;">For families navigating custody disputes or modifications, co-parenting.ai's Secure tier provides a private, auditable record of all communication and activity — accessible to your attorney without disrupting your family's day-to-day.</p>
+      <ul class="legal-list">
+        <li>Timestamped message logs with read receipts</li>
+        <li>Documented custody exchange records</li>
+        <li>Expense history with submitted receipts</li>
+        <li>Schedule change requests and responses</li>
+        <li>Attorney read-only portal — no editing, no interference</li>
+        <li>Exportable PDF reports formatted for court submission</li>
+      </ul>
+    </div>
+    <div class="legal-visual">
+      <div class="log-entry">
+        <div class="log-meta"><span class="log-badge">Message</span><span class="log-time">Mar 14, 2025 · 9:02 AM</span></div>
+        <div class="log-content">"Confirmed pickup at 4pm Friday from school."</div>
+        <div class="log-author">Sent by: Primary Caregiver · Read 9:17 AM</div>
+      </div>
+      <div class="log-entry">
+        <div class="log-meta"><span class="log-badge">Schedule</span><span class="log-time">Mar 14, 2025 · 11:30 AM</span></div>
+        <div class="log-content">Weekend custody schedule updated — Spring break dates confirmed.</div>
+        <div class="log-author">Modified by: Co-Parent · Acknowledged 12:04 PM</div>
+      </div>
+      <div class="log-entry">
+        <div class="log-meta"><span class="log-badge">Expense</span><span class="log-time">Mar 15, 2025 · 3:45 PM</span></div>
+        <div class="log-content">Medical co-pay submitted: $45.00 — Dr. Chen pediatric visit.</div>
+        <div class="log-author">Receipt attached · Reimbursement requested</div>
+      </div>
+      <div class="log-footer">
+        <span>Tamper-evident log · Export as PDF</span>
+      </div>
     </div>
   </div>
 </section>
@@ -826,6 +1262,12 @@
       <h4>School & Programs</h4>
       <p>Administrators get authorized contact lists and essential forms — nothing more.</p>
     </div>
+    <div class="access-card secure-card">
+      <span class="access-icon">⚖️</span>
+      <h4>Family Attorney</h4>
+      <p>Secure read-only portal with timestamped logs, exported documentation, and court-ready communication records.</p>
+      <span style="margin-top:auto; padding-top:0.75rem; font-size:0.7rem; font-weight:500; letter-spacing:0.05em; text-transform:uppercase; color:var(--slate); opacity:0.6;">Secure tier</span>
+    </div>
   </div>
 </section>
 
@@ -833,8 +1275,8 @@
 <section class="cta-section" id="waitlist">
   <div class="animate-on-scroll">
     <p class="section-label">Early access</p>
-    <h2>Be the first family to try it</h2>
-    <p>We're building this with real families. Join the waitlist and help shape what co-parenting.ai becomes.</p>
+    <h2>We're building this <em>carefully</em></h2>
+    <p>co-parenting.ai is designed for families navigating real complexity. Leave your email and we'll reach out when we're ready to welcome you.</p>
     <div class="cta-form">
       <input type="email" id="cta-email" placeholder="Your email address" />
       <button class="btn-white" onclick="submitWaitlist('cta-email', 'cta-success')">Join waitlist</button>
@@ -850,16 +1292,17 @@
   <div style="display:flex;gap:1.5rem;">
     <a href="#">Privacy</a>
     <a href="#">Terms</a>
-    <a href="mailto:hello@co-parenting.ai">Contact</a>
+    <a href="/cdn-cgi/l/email-protection#264e434a4a496645490b5647544348524f484108474f">Contact</a>
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const els = document.querySelectorAll('.animate-on-scroll');
+  els.forEach(el => el.classList.add('will-animate'));
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); e.target.classList.remove('will-animate'); } });
+  }, { threshold: 0.08 });
+  els.forEach(el => observer.observe(el));
 
   function submitWaitlist(inputId, successId) {
     const input = document.getElementById(inputId);
@@ -870,11 +1313,4 @@
       setTimeout(() => input.style.borderColor = '', 1500);
       return;
     }
-    input.style.display = 'none';
-    const btn = input.nextElementSibling;
-    if (btn) btn.style.display = 'none';
-    success.classList.add('show');
-  }
-</script>
-</body>
-</html>
+    input.style.display = 'non
