@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>co-parenting.ai — Raising Together, Separately</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --sage: #5C7A6A;
+    --sage-light: #E8F0EC;
+    --sage-mid: #8FA89A;
+    --warm: #C8956A;
+    --warm-light: #F5EBE0;
+    --warm-mid: #D9AC87;
+    --slate: #3A4A55;
+    --slate-light: #EEF2F5;
+    --cream: #FAF8F4;
+    --text: #2A3238;
+    --text-muted: #7A8A92;
+    --white: #FFFFFF;
+    --border: rgba(90,110,100,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 5vw;
+    background: rgba(250,248,244,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Fraunces', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--slate);
+    letter-spacing: -0.02em;
+  }
+
+  .logo span { color: var(--sage); }
+
+  .nav-cta {
+    background: var(--sage);
+    color: var(--white);
+    border: none;
+    padding: 0.6rem 1.4rem;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+  }
+
+  .nav-cta:hover { background: var(--slate); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 5vw 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    left: -20%;
+    width: 70%;
+    height: 80%;
+    background: radial-gradient(ellipse at center, rgba(92,122,106,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -10%;
+    right: -20%;
+    width: 60%;
+    height: 70%;
+    background: radial-gradient(ellipse at center, rgba(200,149,106,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--sage-light);
+    color: var(--sage);
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .eyebrow-dot {
+    width: 6px; height: 6px;
+    background: var(--sage);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--slate);
+    max-width: 760px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--sage);
+  }
+
+  .hero h1 .warm-text {
+    color: var(--warm);
+  }
+
+  .hero-sub {
+    font-size: 1.125rem;
+    color: var(--text-muted);
+    max-width: 540px;
+    font-weight: 300;
+    margin-bottom: 3rem;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-form {
+    display: flex;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 460px;
+    animation: fadeUp 0.6s 0.3s ease both;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero-form input {
+    flex: 1;
+    min-width: 220px;
+    padding: 0.875rem 1.25rem;
+    border: 1.5px solid var(--border);
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    background: var(--white);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .hero-form input:focus { border-color: var(--sage); }
+  .hero-form input::placeholder { color: var(--text-muted); }
+
+  .btn-primary {
+    background: var(--sage);
+    color: var(--white);
+    border: none;
+    padding: 0.875rem 1.75rem;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .btn-primary:hover { background: var(--slate); }
+  .btn-primary:active { transform: scale(0.98); }
+
+  .hero-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 1rem;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+
+  /* SCROLL INDICATOR */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    animation: fadeUp 0.6s 0.8s ease both;
+  }
+
+  .scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--sage-mid), transparent);
+    animation: scrollPulse 2s ease infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  /* TRUST BAR */
+  .trust-bar {
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 1.5rem 5vw;
+    text-align: center;
+  }
+
+  .trust-bar p {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+  }
+
+  .trust-logos {
+    display: flex;
+    gap: 2.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .trust-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--sage-mid);
+    letter-spacing: -0.01em;
+    opacity: 0.6;
+  }
+
+  /* SECTION SHARED */
+  section { padding: 6rem 5vw; }
+  .section-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--sage);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--slate);
+    max-width: 600px;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title em { font-style: italic; color: var(--sage); }
+
+  /* WHO IT'S FOR */
+  .roles-section {
+    background: var(--white);
+  }
+
+  .roles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .role-card {
+    background: var(--cream);
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    transition: transform 0.2s, border-color 0.2s;
+  }
+
+  .role-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--sage-mid);
+  }
+
+  .role-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    margin-bottom: 1rem;
+  }
+
+  .role-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--slate);
+    margin-bottom: 0.4rem;
+  }
+
+  .role-card p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* FEATURES */
+  .features-section {
+    background: var(--cream);
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 680px) { .features-grid { grid-template-columns: 1fr; } }
+
+  .feature-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .feature-card.large {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  @media (max-width: 680px) { .feature-card.large { grid-column: span 1; grid-template-columns: 1fr; } }
+
+  .feature-tag {
+    display: inline-block;
+    background: var(--sage-light);
+    color: var(--sage);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    border-radius: 100px;
+    margin-bottom: 1rem;
+  }
+
+  .feature-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--slate);
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+
+  .feature-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  .feature-visual {
+    background: var(--sage-light);
+    border-radius: 14px;
+    padding: 1.5rem;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .chat-bubble {
+    border-radius: 12px;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.8rem;
+    max-width: 80%;
+    line-height: 1.4;
+  }
+
+  .chat-bubble.ai {
+    background: var(--white);
+    color: var(--slate);
+    align-self: flex-start;
+    border-bottom-left-radius: 3px;
+  }
+
+  .chat-bubble.user {
+    background: var(--sage);
+    color: var(--white);
+    align-self: flex-end;
+    border-bottom-right-radius: 3px;
+  }
+
+  /* TESTIMONIALS */
+  .testimonials-section {
+    background: var(--slate);
+    color: var(--white);
+  }
+
+  .testimonials-section .section-label { color: var(--sage-mid); }
+  .testimonials-section .section-title { color: var(--white); max-width: 500px; }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin-top: 3rem;
+  }
+
+  .testimonial-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 1.75rem;
+  }
+
+  .testimonial-card p {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 1.25rem;
+  }
+
+  .testimonial-author {
+    font-size: 0.8rem;
+    color: var(--sage-mid);
+    font-weight: 500;
+  }
+
+  /* ACCESS TIERS */
+  .access-section { background: var(--white); }
+
+  .access-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .access-card {
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .access-card:hover {
+    border-color: var(--sage);
+    box-shadow: 0 4px 20px rgba(92,122,106,0.1);
+  }
+
+  .access-card.featured {
+    background: var(--sage-light);
+    border-color: var(--sage);
+  }
+
+  .access-icon {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .access-card h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--slate);
+    margin-bottom: 0.4rem;
+  }
+
+  .access-card p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+
+  /* CTA SECTION */
+  .cta-section {
+    background: var(--sage);
+    text-align: center;
+    padding: 6rem 5vw;
+  }
+
+  .cta-section .section-label { color: rgba(255,255,255,0.6); }
+
+  .cta-section h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 4.5vw, 3.5rem);
+    font-weight: 300;
+    color: var(--white);
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-section h2 em { font-style: italic; color: rgba(255,255,255,0.7); }
+
+  .cta-section p { color: rgba(255,255,255,0.75); max-width: 500px; margin: 0 auto 2.5rem; }
+
+  .cta-form {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    max-width: 440px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+  }
+
+  .cta-form input {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.875rem 1.25rem;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 100px;
+    background: rgba(255,255,255,0.15);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    backdrop-filter: blur(8px);
+    transition: border-color 0.2s;
+  }
+
+  .cta-form input::placeholder { color: rgba(255,255,255,0.55); }
+  .cta-form input:focus { border-color: rgba(255,255,255,0.7); }
+
+  .btn-white {
+    background: var(--white);
+    color: var(--sage);
+    border: none;
+    padding: 0.875rem 1.75rem;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+  }
+
+  .btn-white:hover { opacity: 0.88; }
+
+  /* FOOTER */
+  footer {
+    background: var(--text);
+    color: rgba(255,255,255,0.5);
+    padding: 2.5rem 5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  footer .logo { color: rgba(255,255,255,0.7); }
+  footer p { font-size: 0.8rem; }
+  footer a { color: var(--sage-mid); text-decoration: none; font-size: 0.8rem; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* SUCCESS STATE */
+  .success-msg {
+    display: none;
+    background: var(--sage-light);
+    color: var(--sage);
+    padding: 0.75rem 1.5rem;
+    border-radius: 100px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-top: 1rem;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .success-msg.show { display: inline-block; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">co-parenting<span>.ai</span></div>
+  <a href="#waitlist" class="nav-cta">Join the waitlist</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <span class="eyebrow-dot"></span>
+    Now accepting early access
+  </div>
+  <h1>
+    Raising children together,<br>
+    <em>even when you're apart</em>
+  </h1>
+  <p class="hero-sub">
+    The family operating system for separated families — with an AI copilot for primary caregivers and smart access for everyone in your child's village.
+  </p>
+  <div class="hero-form">
+    <input type="email" id="hero-email" placeholder="Your email address" />
+    <button class="btn-primary" onclick="submitWaitlist('hero-email', 'hero-success')">Get early access</button>
+  </div>
+  <p class="hero-note">Free during beta · No credit card required</p>
+  <div class="success-msg" id="hero-success">You're on the list! We'll be in touch soon.</div>
+  <div class="scroll-hint">
+    <span>scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <p>Built with families like yours in mind</p>
+  <div class="trust-logos">
+    <span class="trust-logo">Co-parents</span>
+    <span class="trust-logo">Grandparents</span>
+    <span class="trust-logo">Nannies</span>
+    <span class="trust-logo">Schools</span>
+    <span class="trust-logo">Therapists</span>
+    <span class="trust-logo">Childcare providers</span>
+  </div>
+</div>
+
+<!-- WHO IT'S FOR -->
+<section class="roles-section">
+  <div class="animate-on-scroll">
+    <p class="section-label">Who it's for</p>
+    <h2 class="section-title">Your child has a <em>whole village</em>. Now they have one place to live.</h2>
+  </div>
+  <div class="roles-grid animate-on-scroll">
+    <div class="role-card">
+      <div class="role-icon" style="background:#E8F0EC;">👩‍👧</div>
+      <h3>Primary Caregiver</h3>
+      <p>Your AI copilot. Full control. One place for everything — schedules, docs, medical, school.</p>
+    </div>
+    <div class="role-card">
+      <div class="role-icon" style="background:#F5EBE0;">👨‍👦</div>
+      <h3>Co-Parent</h3>
+      <p>Stay in sync without constant texting. Shared calendar, expenses, and updates — all in one place.</p>
+    </div>
+    <div class="role-card">
+      <div class="role-icon" style="background:#EEF2F5;">👴</div>
+      <h3>Grandparents</h3>
+      <p>Simple view-only access to schedules, photos, and what they need to know before visits.</p>
+    </div>
+    <div class="role-card">
+      <div class="role-icon" style="background:#E8F0EC;">🏥</div>
+      <h3>Step-Parents</h3>
+      <p>Stay informed and included without overstepping. Defined roles, clear boundaries.</p>
+    </div>
+    <div class="role-card">
+      <div class="role-icon" style="background:#F5EBE0;">🏫</div>
+      <h3>Schools & Programs</h3>
+      <p>Administrators get what they need — authorized contacts, pickup lists, permission forms.</p>
+    </div>
+    <div class="role-card">
+      <div class="role-icon" style="background:#EEF2F5;">🧸</div>
+      <h3>Nannies & Childcare</h3>
+      <p>Shift notes, daily logs, emergency contacts, routines — all accessible from one dashboard.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section">
+  <div class="animate-on-scroll">
+    <p class="section-label">What it does</p>
+    <h2 class="section-title">Everything your family needs, <em>nothing it doesn't</em></h2>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card large animate-on-scroll">
+      <div>
+        <span class="feature-tag">AI Copilot</span>
+        <h3>Your personal family coordinator</h3>
+        <p>Ask anything. "What does Mia need for school tomorrow?" "Remind her dad about the dentist appointment." "Draft a message to the nanny about next week's schedule." Your AI copilot knows your family's whole story.</p>
+      </div>
+      <div class="feature-visual">
+        <div class="chat-bubble user">What does Maya need for her sleepover Friday?</div>
+        <div class="chat-bubble ai">Maya's sleepover at Emma's is this Friday at 6pm. She'll need her sleeping bag (it's in the hall closet), her allergy meds, and her retainer. Her dad is dropping her off — he confirmed yesterday.</div>
+        <div class="chat-bubble user">Can you remind him about the meds?</div>
+        <div class="chat-bubble ai">Done! I sent him a heads-up and added it to the handoff notes.</div>
+      </div>
+    </div>
+
+    <div class="feature-card animate-on-scroll">
+      <span class="feature-tag">Coordination</span>
+      <h3>Shared family calendar</h3>
+      <p>One calendar. Every caregiver sees what they need to see — no more double-bookings, missed pickups, or "I didn't know" moments.</p>
+    </div>
+
+    <div class="feature-card animate-on-scroll">
+      <span class="feature-tag">Documents</span>
+      <h3>Every document, always ready</h3>
+      <p>Medical records, custody agreements, school forms, vaccination history — organized and accessible to the right people at the right time.</p>
+    </div>
+
+    <div class="feature-card animate-on-scroll">
+      <span class="feature-tag">Co-parenting</span>
+      <h3>Expense tracking & splitting</h3>
+      <p>Log expenses, request reimbursements, and keep a clear record — without the tension of asking over text.</p>
+    </div>
+
+    <div class="feature-card animate-on-scroll">
+      <span class="feature-tag">Permissions</span>
+      <h3>Role-based access for everyone</h3>
+      <p>You decide who sees what. Give grandma photos and the weekend schedule. Give school the emergency contacts. Total control, zero confusion.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div class="animate-on-scroll">
+    <p class="section-label">Early voices</p>
+    <h2 class="section-title">What families are <em>waiting for</em></h2>
+  </div>
+  <div class="testimonials-grid animate-on-scroll">
+    <div class="testimonial-card">
+      <p>"I have a notebook, three group chats, a shared Google calendar, and still things fall through the cracks. I just want one place."</p>
+      <div class="testimonial-author">— Single mom of two, San Francisco</div>
+    </div>
+    <div class="testimonial-card">
+      <p>"My mom watches the kids twice a week but she's always texting me to ask what the schedule is. I wish she just had her own view."</p>
+      <div class="testimonial-author">— Co-parent, Austin TX</div>
+    </div>
+    <div class="testimonial-card">
+      <p>"The hardest part isn't the separation — it's the coordination. Every week is a negotiation. Something that just handles the logistics would be life-changing."</p>
+      <div class="testimonial-author">— Father of three, Brooklyn NY</div>
+    </div>
+  </div>
+</section>
+
+<!-- ACCESS TIERS -->
+<section class="access-section">
+  <div class="animate-on-scroll">
+    <p class="section-label">How it works</p>
+    <h2 class="section-title">One family hub, <em>every role covered</em></h2>
+  </div>
+  <div class="access-grid animate-on-scroll">
+    <div class="access-card featured">
+      <span class="access-icon">🧭</span>
+      <h4>Primary Caregiver</h4>
+      <p>Full access + AI copilot. Manage everything, set permissions, stay in control.</p>
+    </div>
+    <div class="access-card">
+      <span class="access-icon">🤝</span>
+      <h4>Co-Parent</h4>
+      <p>Shared schedule, expenses, and messaging. Collaborate without conflict.</p>
+    </div>
+    <div class="access-card">
+      <span class="access-icon">❤️</span>
+      <h4>Family & Extended</h4>
+      <p>Grandparents, step-parents, and close family get a simple, curated view.</p>
+    </div>
+    <div class="access-card">
+      <span class="access-icon">🏡</span>
+      <h4>Caregivers</h4>
+      <p>Nannies, babysitters, and childcare providers see daily routines and logs.</p>
+    </div>
+    <div class="access-card">
+      <span class="access-icon">🏫</span>
+      <h4>School & Programs</h4>
+      <p>Administrators get authorized contact lists and essential forms — nothing more.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="waitlist">
+  <div class="animate-on-scroll">
+    <p class="section-label">Early access</p>
+    <h2>Be the first family to try it</h2>
+    <p>We're building this with real families. Join the waitlist and help shape what co-parenting.ai becomes.</p>
+    <div class="cta-form">
+      <input type="email" id="cta-email" placeholder="Your email address" />
+      <button class="btn-white" onclick="submitWaitlist('cta-email', 'cta-success')">Join waitlist</button>
+    </div>
+    <div class="success-msg" id="cta-success" style="background:rgba(255,255,255,0.2);color:white;">You're on the list! We'll reach out soon.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">co-parenting<span style="color:var(--sage-mid)">.ai</span></div>
+  <p>© 2025 co-parenting.ai · All rights reserved</p>
+  <div style="display:flex;gap:1.5rem;">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="mailto:hello@co-parenting.ai">Contact</a>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+  function submitWaitlist(inputId, successId) {
+    const input = document.getElementById(inputId);
+    const success = document.getElementById(successId);
+    const email = input.value.trim();
+    if (!email || !email.includes('@')) {
+      input.style.borderColor = '#C8956A';
+      setTimeout(() => input.style.borderColor = '', 1500);
+      return;
+    }
+    input.style.display = 'none';
+    const btn = input.nextElementSibling;
+    if (btn) btn.style.display = 'none';
+    success.classList.add('show');
+  }
+</script>
+</body>
+</html>
