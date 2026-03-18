@@ -953,7 +953,7 @@
 <!-- NAV -->
 <nav>
   <div class="logo">co-parenting<span>.ai</span></div>
-  <a href="#waitlist" class="nav-cta">Join the waitlist</a>
+  <a href="https://tally.so/r/ZjJDxe" target="_blank" class="nav-cta">Join the waitlist</a>
 </nav>
 
 <!-- HERO -->
@@ -970,11 +970,9 @@
     Less mental load. The family operating system that handles the logistics — so you can focus on what actually matters.
   </p>
   <div class="hero-form">
-    <input type="email" id="hero-email" placeholder="Your email address" />
-    <button class="btn-primary" onclick="submitWaitlist('hero-email', 'hero-success')">Get early access</button>
+    <a href="https://tally.so/r/ZjJDxe" target="_blank" class="btn-primary">Join the waitlist</a>
   </div>
   <p class="hero-note">Free during beta · No credit card required</p>
-  <div class="success-msg" id="hero-success">You're on the list! We'll be in touch soon.</div>
   <div class="scroll-hint">
     <span>scroll</span>
     <div class="scroll-line"></div>
@@ -1276,12 +1274,9 @@
   <div class="animate-on-scroll">
     <p class="section-label">Early access</p>
     <h2>We're building this <em>carefully</em></h2>
-    <p>co-parenting.ai is designed for families navigating real complexity. Leave your email and we'll reach out when we're ready to welcome you.</p>
-    <div class="cta-form">
-      <input type="email" id="cta-email" placeholder="Your email address" />
-      <button class="btn-white" onclick="submitWaitlist('cta-email', 'cta-success')">Join waitlist</button>
-    </div>
-    <div class="success-msg" id="cta-success" style="background:rgba(255,255,255,0.2);color:white;">You're on the list! We'll reach out soon.</div>
+    <p>co-parenting.ai is designed for families navigating real complexity. Leave your details and we'll reach out when we're ready to welcome you.</p>
+    <a href="https://tally.so/r/ZjJDxe" target="_blank" class="btn-white" style="display:inline-block; margin-top:2rem; text-decoration:none;">Join the waitlist</a>
+    <p style="margin-top:1rem; font-size:0.8rem; color:rgba(255,255,255,0.5);">Free during beta · No credit card required</p>
   </div>
 </section>
 
@@ -1303,14 +1298,6 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); e.target.classList.remove('will-animate'); } });
   }, { threshold: 0.08 });
   els.forEach(el => observer.observe(el));
-
-  function submitWaitlist(inputId, successId) {
-    const input = document.getElementById(inputId);
-    const success = document.getElementById(successId);
-    const email = input.value.trim();
-    if (!email || !email.includes('@')) {
-      input.style.borderColor = '#C8956A';
-      setTimeout(() => input.style.borderColor = '', 1500);
-      return;
-    }
-    input.style.display = 'non
+</script>
+</body>
+</html>
